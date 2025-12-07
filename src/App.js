@@ -13,15 +13,27 @@ function App() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    // Connect to backend
+    // Get backend URL from environment variable
     const backendURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
-    const newSocket = io(backendURL);
-    setSocket(newSocket);
+    
+    console.log('🔌 Connecting to backend:', backendURL);
+    console.log('🌍 Environment:', process.env.NODE_ENV);
 
-    console.log('✅ Connecting to backend...');
+    const newSocket = io(backendURL, {
+      transports: ['websocket', 'polling'], // Try websocket first, fallback to polling
+      withCredentials: true
+    });
+
+    setSocket(newSocket);
 
     newSocket.on('connect', () => {
       console.log('✅ Connected to server with ID:', newSocket.id);
+      console.log('🔗 Backend URL:', backendURL);
+    });
+
+    newSocket.on('connect_error', (error) => {
+      console.error('❌ Connection Error:', error.message);
+      console.log('🔍 Check if backend is running at:', backendURL);
     });
 
     newSocket.on('disconnect', () => {

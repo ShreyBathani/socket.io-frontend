@@ -18,6 +18,9 @@
 .env.test.local
 .env.production.local
 
+# Don't ignore .env.production for Vercel
+!.env.production
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
