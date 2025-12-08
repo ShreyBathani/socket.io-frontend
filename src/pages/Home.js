@@ -27,6 +27,15 @@ const Home = () => {
           </p>
           <span style={styles.badge}>Example 2</span>
         </Link>
+
+        <Link to="/sales-dashboard" style={styles.card}>
+          <div style={styles.cardIcon}>📊</div>
+          <h2 style={styles.cardTitle}>Sales Dashboard</h2>
+          <p style={styles.cardDesc}>
+            Real-time sales analytics with KPIs, charts, and live updates when new sales are added
+          </p>
+          <span style={styles.badge}>Example 3</span>
+        </Link>
       </div>
 
       <div style={styles.footer}>
@@ -41,7 +50,7 @@ const Home = () => {
 const styles = {
   container: {
     padding: '3rem 2rem',
-    maxWidth: '1000px',
+    maxWidth: '1200px',
     margin: '0 auto',
     textAlign: 'center',
     minHeight: '100vh',

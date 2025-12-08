@@ -8,6 +8,8 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import ClickCounter from './examples/ClickCounter';
 import ChatRooms from './examples/ChatRooms';
+import SalesDashboard from './examples/SalesDashboard';
+import SalesForm from './examples/SalesForm';
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -58,6 +60,10 @@ function App() {
           
           {/* Example 2: Chat Rooms */}
           <Route path="/chat-rooms" element={<ChatRooms socket={socket} />} />
+          
+          {/* Example 3: Sales Dashboard & Form */}
+          <Route path="/sales-dashboard" element={<SalesDashboard socket={socket} />} />
+          <Route path="/sales-form" element={<SalesForm socket={socket} />} />
         </Routes>
       </Layout>
     </Router>

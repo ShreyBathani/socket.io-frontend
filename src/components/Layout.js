@@ -31,6 +31,15 @@ const Layout = ({ children }) => {
             >
               💬 Chat Rooms
             </Link>
+            <Link 
+              to="/sales-dashboard" 
+              style={{
+                ...styles.navLink,
+                ...(location.pathname === '/sales-dashboard' || location.pathname === '/sales-form' ? styles.activeLink : {})
+              }}
+            >
+              📊 Sales Dashboard
+            </Link>
           </div>
         </nav>
       )}
@@ -53,6 +62,8 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottom: '2px solid #61dafb',
+    flexWrap: 'wrap',
+    gap: '1rem',
   },
   homeLink: {
     color: '#61dafb',
@@ -63,7 +74,8 @@ const styles = {
   },
   navLinks: {
     display: 'flex',
-    gap: '2rem',
+    gap: '1rem',
+    flexWrap: 'wrap',
   },
   navLink: {
     color: '#ccc',
