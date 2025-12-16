@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Link } from 'react-router-dom';
+import '../SalesDashboard.css';
 
 const SalesDashboard = ({ socket }) => {
   const [connected, setConnected] = useState(false);
@@ -16,6 +17,7 @@ const SalesDashboard = ({ socket }) => {
       setTimeout(() => {setShowResetButton(false); setResetClicks(prev => 0);}, 4000); // Hide after 5 seconds
     }
   };
+
   useEffect(() => {
     if (!socket) return;
 
@@ -120,7 +122,7 @@ const SalesDashboard = ({ socket }) => {
       </p>
 
       {/* KPI Cards */}
-      <div style={styles.kpiGrid}>
+      <div className="kpiGrid">
         <div style={styles.kpiCard}>
           <div style={styles.kpiIcon}>💰</div>
           <div>
@@ -155,73 +157,81 @@ const SalesDashboard = ({ socket }) => {
       </div>
 
       {/* Charts Grid */}
-      <div style={styles.chartsGrid}>
+      <div className="chartsGrid">
         {/* Sales Trend */}
-        <div style={styles.chartCard}>
+        <div className="chartCard">
           <h3 style={styles.chartTitle}>📈 Sales Trend</h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={trendChartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-              <XAxis dataKey="date" stroke="#ccc" />
-              <YAxis stroke="#ccc" />
-              <Tooltip contentStyle={{ backgroundColor: '#282c34', border: '1px solid #61dafb' }} />
-              <Legend />
-              <Line type="monotone" dataKey="revenue" stroke="#61dafb" strokeWidth={3} dot={{ fill: '#61dafb' }} />
-            </LineChart>
-          </ResponsiveContainer>
+          <div style={styles.chartInner}>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={trendChartData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                <XAxis dataKey="date" stroke="#ccc" />
+                <YAxis stroke="#ccc" />
+                <Tooltip contentStyle={{ backgroundColor: '#282c34', border: '1px solid #61dafb' }} />
+                <Legend />
+                <Line type="monotone" dataKey="revenue" stroke="#61dafb" strokeWidth={3} dot={{ fill: '#61dafb' }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Category Distribution */}
-        <div style={styles.chartCard}>
+        <div className="chartCard">
           <h3 style={styles.chartTitle}>🎯 Sales by Category</h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart>
-              <Pie
-                data={categoryChartData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, value }) => `${name}: $${value}`}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {categoryChartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
+          <div style={styles.chartInner}>
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={categoryChartData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, value }) => `${name}: $${value}`}
+                  outerRadius="80%"
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {categoryChartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Regional Sales */}
-        <div style={styles.chartCard}>
+        <div className="chartCard">
           <h3 style={styles.chartTitle}>🌍 Sales by Region</h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={regionChartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-              <XAxis dataKey="name" stroke="#ccc" />
-              <YAxis stroke="#ccc" />
-              <Tooltip contentStyle={{ backgroundColor: '#282c34', border: '1px solid #61dafb' }} />
-              <Legend />
-              <Bar dataKey="revenue" fill="#8b5cf6" />
-            </BarChart>
-          </ResponsiveContainer>
+          <div style={styles.chartInner}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={regionChartData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                <XAxis dataKey="name" stroke="#ccc" />
+                <YAxis stroke="#ccc" />
+                <Tooltip contentStyle={{ backgroundColor: '#282c34', border: '1px solid #61dafb' }} />
+                <Legend />
+                <Bar dataKey="revenue" fill="#8b5cf6" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Top Products */}
-        <div style={styles.chartCard}>
+        <div className="chartCard">
           <h3 style={styles.chartTitle}>🏆 Top Products</h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={topProducts} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-              <XAxis type="number" stroke="#ccc" />
-              <YAxis type="category" dataKey="name" stroke="#ccc" />
-              <Tooltip contentStyle={{ backgroundColor: '#282c34', border: '1px solid #61dafb' }} />
-              <Bar dataKey="revenue" fill="#10b981" />
-            </BarChart>
-          </ResponsiveContainer>
+          <div style={styles.chartInner}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={topProducts} layout="vertical">
+                <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                <XAxis type="number" stroke="#ccc" />
+                <YAxis type="category" dataKey="name" stroke="#ccc" />
+                <Tooltip contentStyle={{ backgroundColor: '#282c34', border: '1px solid #61dafb' }} />
+                <Bar dataKey="revenue" fill="#10b981" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
     </div>
@@ -230,100 +240,101 @@ const SalesDashboard = ({ socket }) => {
 
 const styles = {
   container: {
-    padding: '2rem',
+    padding: 'clamp(1rem, 2vw, 2rem)',
     maxWidth: '1400px',
     margin: '0 auto',
     fontFamily: 'Arial, sans-serif',
+    boxSizing: 'border-box',
   },
-  header: {
+    header: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: '1rem',
     flexWrap: 'wrap',
-    gap: '1rem',
+    gap: '0.75rem',
   },
   title: {
     color: '#61dafb',
     margin: 0,
+    fontSize: 'clamp(1.25rem, 2vw, 1.7rem)',
   },
   headerButtons: {
     display: 'flex',
-    gap: '1rem',
+    gap: '0.75rem',
+    flexWrap: 'wrap',
   },
   addButton: {
     backgroundColor: '#10b981',
     color: 'white',
     border: 'none',
-    padding: '0.75rem 1.5rem',
+    padding: '0.6rem 1.2rem',
     borderRadius: '5px',
     textDecoration: 'none',
     fontWeight: 'bold',
     cursor: 'pointer',
+    fontSize: '0.9rem',
+    whiteSpace: 'nowrap',
   },
   resetButton: {
     backgroundColor: '#ef4444',
     color: 'white',
     border: 'none',
-    padding: '0.75rem 1.5rem',
+    padding: '0.6rem 1.2rem',
     borderRadius: '5px',
     fontWeight: 'bold',
     cursor: 'pointer',
+    fontSize: '0.9rem',
+    whiteSpace: 'nowrap',
   },
   status: {
-    fontSize: '1rem',
-    marginBottom: '2rem',
+    fontSize: '0.9rem',
+    marginBottom: '1.5rem',
     color: '#ccc',
   },
   loading: {
     color: '#888',
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
     textAlign: 'center',
     marginTop: '3rem',
   },
-  kpiGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '1.5rem',
-    marginBottom: '2rem',
-  },
+  // kpiGrid: {
+  //   display: 'grid',
+  //   gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+  //   gap: '1rem',
+  //   marginBottom: '1.5rem',
+  // },
   kpiCard: {
     backgroundColor: '#282c34',
-    padding: '1.5rem',
+    padding: '1.1rem',
     borderRadius: '12px',
     border: '2px solid #61dafb',
     display: 'flex',
     alignItems: 'center',
-    gap: '1rem',
+    gap: '0.75rem',
+    minWidth: 0,
   },
   kpiIcon: {
-    fontSize: '2.5rem',
+    fontSize: '2rem',
   },
   kpiLabel: {
     color: '#888',
-    fontSize: '0.9rem',
-    marginBottom: '0.5rem',
+    fontSize: '0.8rem',
+    marginBottom: '0.3rem',
   },
   kpiValue: {
     color: '#61dafb',
-    fontSize: '1.8rem',
+    fontSize: '1.4rem',
     margin: 0,
-  },
-  chartsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
-    gap: '1.5rem',
-  },
-  chartCard: {
-    backgroundColor: '#282c34',
-    padding: '1.5rem',
-    borderRadius: '12px',
-    border: '2px solid #61dafb',
   },
   chartTitle: {
     color: '#61dafb',
-    marginBottom: '1rem',
-    fontSize: '1.2rem',
+    marginBottom: '0.75rem',
+    fontSize: '1rem',
+  },
+  chartInner: {
+    width: '100%',
+    height: '220px',
   },
 };
 

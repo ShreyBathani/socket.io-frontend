@@ -1,0 +1,33 @@
+/* SalesDashboard.css */
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+/* Each chart card */
+.chartCard {
+  background-color: #282c34;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px solid #61dafb;
+  min-width: 0;
+}
+
+.kpiGrid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Stack to 1 column on small screens */
+@media (max-width: 720px) {
+  .chartsGrid {
+    grid-template-columns: 1fr;
+  }
+  .kpiGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
