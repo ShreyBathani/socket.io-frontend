@@ -113,13 +113,13 @@ const ChatRooms = ({ socket }) => {
 
   const handleJoinRoom = (room) => {
     if (socket && connected && username.trim()) {
-      socket.emit('joinRoom', room);
+      socket.emit('joinRoom', room, username.trim());
     }
   };
 
   const handleLeaveRoom = () => {
     if (socket && currentRoom) {
-      socket.emit('leaveRoom', currentRoom);
+      socket.emit('leaveRoom', currentRoom, username.trim());
     }
   };
 
